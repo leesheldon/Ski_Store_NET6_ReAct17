@@ -76,7 +76,7 @@ namespace API
             services.AddIdentityCore<User>(opt => {
                         opt.User.RequireUniqueEmail = true;
                     })
-                .AddRoles<IdentityRole>()
+                .AddRoles<Role>()
                 .AddEntityFrameworkStores<DataContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
