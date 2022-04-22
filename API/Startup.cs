@@ -94,12 +94,34 @@ namespace API
 
             services.AddAuthorization();
             services.AddScoped<TokenService>();
+            services.AddScoped<PaymentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseMiddleware<ExceptionMiddleware>();
+
+            // Content Security Policy 
+            app.UseXContentTypeOptions();
+            app.UseReferrerPolicy(opt => opt.NoReferrer());
+            app.UseXXssProtection(opt => opt.EnabledWithBlockMode());
+            app.UseXfo(opt => opt.Deny());
+            app.UseCspReportOnly(opt => opt
+                .BlockAllMixedContent()
+                .StyleSources(s => s.Self().CustomSources(
+                    "https://fonts.googleapis.com",
+                    "https://js.stripe.com/v3/fingerprinted/css/"
+                ))
+                .FontSources(s => s.Self())
+                .FormActions(s => s.Self())
+                .FrameAncestors(s => s.Self())
+                .ImageSources(s => s.Self())
+                .ScriptSources(s => s.Self().CustomSources(
+                    "https://js.stripe.com/v3",
+                    "https://js.stripe.com/v3/fingerprinted/js/"
+                ))
+            );
             
             if (env.IsDevelopment())
             {
