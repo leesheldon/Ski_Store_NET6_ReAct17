@@ -32,7 +32,7 @@ export default function Catalogue() {
 
     if (!filtersLoaded) return <LoadingComponent message='Loading products...' />
     
-    // sx={{ mb: 2, p: 2 }} --> p is padding
+    // sx={{ mb: 2, p: 2 }} --> p is padding // mb --> margin bottom
     return (
         <Grid container columnSpacing={4}>
             <Grid item xs={3}>

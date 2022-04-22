@@ -55,7 +55,7 @@ export default function ProductDetails() {
             </Grid>
             <Grid item xs={6}>
                 <Typography variant="h3">{product.name}</Typography>
-                <Divider sx={{ mb: 2 }} />
+                <Divider sx={{ mb: 2 }} /> 
                 <Typography variant="h4" color='secondary'>{currencyFormat(product.price)}</Typography>
                 <TableContainer>
                     <Table>
