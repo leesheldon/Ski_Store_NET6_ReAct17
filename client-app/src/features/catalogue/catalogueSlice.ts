@@ -102,6 +102,14 @@ export const catalogueSlice = createSlice({
         setPageNumber: (state, action) => {
             state.productsLoaded = false;
             state.productParams = {...state.productParams, ...action.payload};
+        },
+        setProduct: (state, action) => {
+            productsAdapter.upsertOne(state, action.payload);
+            state.productsLoaded = false;
+        },
+        removeProduct: (state, action)  => {
+            productsAdapter.removeOne(state, action.payload);
+            state.productsLoaded = false;
         }
     },
     extraReducers: (builder => {
@@ -155,4 +163,4 @@ export const catalogueSlice = createSlice({
 
 export const productSelectors = productsAdapter.getSelectors((state: RootState) => state.catalogue);
 
-export const {setProductParams, resetProductParams, setPaginationData, setPageNumber} = catalogueSlice.actions;
+export const {setProductParams, resetProductParams, setPaginationData, setPageNumber, setProduct, removeProduct} = catalogueSlice.actions;
